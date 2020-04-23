@@ -10,10 +10,9 @@ namespace Common
     public class GeneratorForRecords
     {
         private static Random _random = new Random();
-        public double GeneratePrice() => _random.NextDouble() + _random.Next(int.MaxValue / 10);
 
         public GeneratorForRecords()
-        {}
+        { }
 
         public string GenerateCreditCard()
         {
@@ -27,6 +26,15 @@ namespace Common
             return builder.ToString();
         }
 
+        public double GeneratePrice(bool isOneInstallment)
+        {
+            if (isOneInstallment)
+            {
+                return _random.NextDouble() + _random.Next(5000);
+            }
+
+            return _random.NextDouble() + _random.Next(int.MaxValue / 10);
+        }
         public string GenerateStoreId()
         {
             Xeger xeger = new Xeger(@"^[A-F][A-D]\d{5}", _random);
