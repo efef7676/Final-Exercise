@@ -9,7 +9,7 @@ namespace Common
     public class RecordToPublish
     {
         private static Random _random = new Random();
-        private GeneratorForRecords Generator = new GeneratorForRecords();
+        public GeneratorForRecords Generator = new GeneratorForRecords();
         public string StoreId { get; set; }
         public string CreditCard { get; set; }
         public dynamic PurchaseDate { get; set; }
@@ -19,49 +19,46 @@ namespace Common
         public bool IsValid { get; set; }
         public string WhyInvalid { get; set; }
 
-        public RecordToPublish()
-        { }
-
-        public RecordToPublish(string storeId, string creditCard, dynamic purchaseDate, double totalPrice, dynamic installments)
+        public RecordToPublish(bool isOneInstallment = true)
         {
-            StoreId = storeId;
-            CreditCard = creditCard;
-            PurchaseDate = purchaseDate;
-            TotalPrice = totalPrice;
-            Installments = installments;
-        }
 
-        public RecordToPublish(bool isValidRecord)
-        {
-            if (isValidRecord)
-            {
-                StoreId = Generator.GenerateStoreId();
-                CreditCard = Generator.GenerateCreditCard();
-                PurchaseDate = Generator.GenerateDate(StoreId[1]).ToString("yyyy-MM-dd");
-                TotalPrice = Generator.GeneratePrice();
-                Installments = Generator.GenerateInstallmentsByPrice(false, TotalPrice);
-                IsValid = true;
-                WhyInvalid = null;
-            }
-            else
-            {
-                IsValid = false;
-                //records that will save in DB as invalid!!
-            }
-
+            StoreId = Generator.GenerateValidStoreId();
+            CreditCard = Generator.GenerateValidCreditCard();
+            PurchaseDate = Generator.GenerateValidDate(StoreId[1]).ToString(ConfigorationValues.ExpectedDateFormat);
+            TotalPrice = Generator.GenerateDoublePrice(isOneInstallment);
+            Installments = Generator.GenerateInstallmentsByPrice(isOneInstallment, TotalPrice);
+            IsValid = true;
+            WhyInvalid = null;
             InsertionDate = DateTime.Now.Date;
         }
 
         public RecordToPublish SetAsImpossibleRecord()
         {
             StoreId = $"{_random.Next()}";
-            PurchaseDate = Generator.GenerateDate();
-            TotalPrice = Generator.GenerateStoreId();
+            PurchaseDate = Generator.GenerateValidDate();
+            TotalPrice = Generator.GenerateValidStoreId();
             Installments = _random.Next(-100, 0);
-            CreditCard = Generator.GenerateCreditCard();
+            CreditCard = Generator.GenerateValidCreditCard();
 
             return this;
         }
 
+        public void SetActivityDays(char activityDays = ' ')
+        {
+            var storeId = new StringBuilder(StoreId);
+            storeId[1] = activityDays;
+            StoreId = Convert.ToString(storeId);
+        }
+
+        public static List<RecordToPublish> CreateNValidRecordsToPublish(int numberOfRecords)
+        {
+            var records = new List<RecordToPublish>();
+            for (int i = 0; i < numberOfRecords; i++)
+            {
+                records.Add(new RecordToPublish(true));
+            }
+
+            return records;
+        }
     }
 }

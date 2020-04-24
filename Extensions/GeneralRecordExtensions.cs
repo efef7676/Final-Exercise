@@ -7,10 +7,11 @@ using Common;
 
 namespace Extensions
 {
-    public static class RecordExtensions
+    public static class GeneralRecordExtensions
     {
         public static string ConvertToString(this List<RecordToPublish> records)
         {
+            
             var finalString = string.Empty;
             foreach (var record in records)
             {

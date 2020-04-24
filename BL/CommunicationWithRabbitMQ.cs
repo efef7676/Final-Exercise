@@ -29,15 +29,5 @@ namespace BL
             }
         }
 
-        public List<RecordToPublish> CreateNValidRecordsToPublish(int numberOfRecords)
-        {
-            var records = new List<RecordToPublish>();
-            for (int i = 0; i < numberOfRecords; i++)
-            {
-                records.Add(new RecordToPublish(true));
-            }
-
-            return records;
-        }
     }
 }

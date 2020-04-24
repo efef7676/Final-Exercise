@@ -11,7 +11,9 @@ namespace BL
     public class CommunicationWithDB
     {
         private ActionsInDB ActionsInDB { get; set; }
-        public bool isEmptyTable() => ActionsInDB.RetrievalFromDB.GetRows().Count == 0;
+        public void OpenConnection() => ActionsInDB.OpenConnection();
+        public void CloseConnection() => ActionsInDB.CloseConnection();
+        public void WaitUntilNRowsInDB(int expectedNumberOfRows) => ActionsInDB.WaitUntilAmountOfRowsIsUpdate(expectedNumberOfRows);
 
         public CommunicationWithDB()
         {
@@ -27,7 +29,5 @@ namespace BL
         {
             return ActionsInDB.RetrievalFromDB.GetRows(storeIdValue);
         }
-
-        
     }
 }

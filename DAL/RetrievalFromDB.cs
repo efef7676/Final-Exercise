@@ -23,7 +23,6 @@ namespace DAL
         {
             string query;
             var receivedRecords = new List<ReceivedRecord>();
-            Connection.Open();
 
             if (String.IsNullOrEmpty(storeIdValue))
             {
@@ -55,9 +54,17 @@ namespace DAL
                 receivedRecords.Add(receivedRecord);
             }
 
-            Connection.Close();
-
             return receivedRecords;
+        }
+
+
+        public bool IsDBHavaNRecords(int expectedNumberOfRecords)
+        {
+            string query = "SELECT COUNT(*) FROM purchases";
+            var receivedRecords = new List<ReceivedRecord>();
+            var cmd = new MySqlCommand(query, Connection);
+
+            return Convert.ToInt32(cmd.ExecuteScalar()) == expectedNumberOfRecords;
         }
     }
 

@@ -18,11 +18,9 @@ namespace DAL
 
         public void DeleteAllRows()
         {
-            Connection.Open();
             var query = "DELETE FROM purchases";
             var cmd = new MySqlCommand(query, Connection);
             cmd.ExecuteNonQuery();
-            Connection.Close();
         }
     }
 }

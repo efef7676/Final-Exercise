@@ -14,10 +14,9 @@ namespace Common
         public GeneratorForRecords()
         { }
 
-        public string GenerateCreditCard()
+        public string GenerateValidCreditCard()
         {
             var builder = new StringBuilder();
-
             while (builder.Length < 16)
             {
                 builder.Append(_random.Next(9).ToString());
@@ -26,23 +25,34 @@ namespace Common
             return builder.ToString();
         }
 
-        public double GeneratePrice(bool isOneInstallment)
+        public double GenerateDoublePrice(bool isOneInstallment)
         {
             if (isOneInstallment)
             {
                 return _random.NextDouble() + _random.Next(5000);
             }
 
-            return _random.NextDouble() + _random.Next(int.MaxValue / 10);
+            return _random.NextDouble() + _random.Next(int.MaxValue/40);
         }
-        public string GenerateStoreId()
+
+        public int GenerateIntegerPrice(bool isOneInstallment)
+        {
+            if (isOneInstallment)
+            {
+                return _random.Next(5000);
+            }
+
+            return _random.Next(int.MaxValue / 40);
+        }
+
+        public string GenerateValidStoreId()
         {
             Xeger xeger = new Xeger(@"^[A-F][A-D]\d{5}", _random);
 
             return xeger.Generate();
         }
 
-        public DateTime GenerateDate(char activityDays = ' ')
+        public DateTime GenerateValidDate(char activityDays = ' ')
         {
             var start = new DateTime(2000, 1, 1);
             var range = (DateTime.Today - start).Days;
@@ -66,16 +76,16 @@ namespace Common
             return date;
         }
 
-        public dynamic GenerateInstallmentsByPrice(bool isMoreThenOneInstallment, double price)
+        public dynamic GenerateInstallmentsByPrice(bool isOneInstallment, double price)
         {
-            var oneInstallmentOptions = new dynamic[] { "FULL", 1, String.Empty };
-            if (isMoreThenOneInstallment)
+            var oneInstallmentOptions = new dynamic[] { "FULL", 1, null};
+            if (isOneInstallment)
             {
-                return _random.Next(2, ((int)price) * 10);
+                return oneInstallmentOptions[_random.Next(oneInstallmentOptions.Length)];
             }
             else
             {
-                return oneInstallmentOptions[_random.Next(oneInstallmentOptions.Length)];
+                return _random.Next(2, ((int)price) * 10);
             }
         }
     }

@@ -49,7 +49,6 @@
     <Compile Include="GeneratorForRecords.cs" />
     <Compile Include="ReceivedRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Record.cs" />
     <Compile Include="RecordToPublish.cs" />
   </ItemGroup>
   <ItemGroup>

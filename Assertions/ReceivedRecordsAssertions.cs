@@ -21,11 +21,12 @@ namespace Assertions
 
 
         [CustomAssertion]
-        public AndConstraint<ReceivedRecordsAssertions> ExistInDBWithAllDetails(List<RecordToPublish> sentRecords)
+        public AndConstraint<ReceivedRecordsAssertions> BeInDB(List<RecordToPublish> sentRecords)
         {
             ReceivedRecords
                 .Should()
                 .BeEquivalentTo(sentRecords.ConvertToReceivedRecords());
+
             return new AndConstraint<ReceivedRecordsAssertions>(this);
         }
 
