@@ -23,9 +23,9 @@ namespace Tests
         }
 
         [TestMethod]
-        public void SendRecord_PurchaseDateInUnexpectedFormat_WillNotAddToDB(string dateFormat)
+        public void SendRecord_PurchaseDateInUnexpectedFormat_WillNotAddToDB()
         {
-            _baseRecord.SetPurchaseDateInUnexpectedFormat("dd/MM/yyyy");
+            _baseRecord.SetPurchaseDateInUnexpectedFormat("dd-MM-yyyy");
             _recordsToPublish.Add(_baseRecord);
 
             _rabbitMq.PublishMessage(_recordsToPublish.ConvertToString());
@@ -51,6 +51,7 @@ namespace Tests
                 .Should()
                 .NotContains(_baseRecord);
         }
+
         [TestMethod]
         public void SendRecord_ImpossibleStoreId_WillNotAddToDB()
         {
@@ -95,5 +96,6 @@ namespace Tests
                  .Should()
                  .NotContains(_baseRecord);
         }
+        
     }
 }
