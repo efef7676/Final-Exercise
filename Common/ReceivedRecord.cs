@@ -29,11 +29,11 @@ namespace Common
             CreditCard = record.CreditCard;
             PurchaseDate = DateTime.Parse(record.PurchaseDate);
             TotalPrice = RoundDouble(record.TotalPrice);
-            Installments = record.Installments is int ? record.Installments : 1;
+            Installments = Convert.ToInt32(record.Installments is int ? record.Installments : 1);
             StoreType = StoreId[0];
             ActivityDays = StoreId[1];
             InsertionDate = record.InsertionDate;
-            PricePerInstallment = RoundDouble(record.TotalPrice/record.Installments);
+            PricePerInstallment = RoundDouble(record.TotalPrice/Installments);
             IsValid = record.IsValid;
             WhyInvalid = record.WhyInvalid;
         }

@@ -66,6 +66,7 @@
     <Compile Include="BaseTest.cs" />
     <Compile Include="ImpossibleRecordTests.cs" />
     <Compile Include="InvalidRecordTests.cs" />
+    <Compile Include="RequiredFieldIsEmptyTests.cs" />
     <Compile Include="ValidRecordTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

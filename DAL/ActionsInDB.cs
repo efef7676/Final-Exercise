@@ -26,11 +26,17 @@ namespace DAL
         public void WaitUntilAmountOfRowsIsUpdate(int expectedNumberOfRows)
         {
             var isAmountOfRowsEqual = RetrievalFromDB.IsDBHavaNRecords(expectedNumberOfRows);
-            while(!isAmountOfRowsEqual)
+            while (!isAmountOfRowsEqual)
             {
                 isAmountOfRowsEqual = RetrievalFromDB.IsDBHavaNRecords(expectedNumberOfRows);
             }
             return;
+
+            //while (!RetrievalFromDB.IsDBHavaNRecords(expectedNumberOfRows))
+            //{
+            //    continue;
+            //}
+            //return;
         }
     }
 }

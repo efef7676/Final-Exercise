@@ -30,7 +30,7 @@ namespace Tests
 
             _actionsInDB.GetFromDB()
                 .Should()
-                .BeInDB(_recordsToPublish);
+                .BeAddedSuccessfully(_recordsToPublish);
         }//Dont run this test!! - it will chrash the code
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace Tests
 
             _actionsInDB.GetFromDB()
                 .Should()
-                .BeInDB(_recordsToPublish);
+                .BeAddedSuccessfully(_recordsToPublish);
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace Tests
 
             _actionsInDB.GetFromDB()
                 .Should()
-                .BeInDB(_recordsToPublish);
+                .BeAddedSuccessfully(_recordsToPublish);
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace Tests
 
             _actionsInDB.GetFromDB()
                 .Should()
-                .BeInDB(_recordsToPublish);
+                .BeAddedSuccessfully(_recordsToPublish);
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace Tests
 
             _actionsInDB.GetFromDB()
                 .Should()
-                .BeInDB(_recordsToPublish);
+                .BeAddedSuccessfully(_recordsToPublish);
         }
     }
 }

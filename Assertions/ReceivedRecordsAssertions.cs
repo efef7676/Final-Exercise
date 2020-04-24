@@ -21,7 +21,7 @@ namespace Assertions
 
 
         [CustomAssertion]
-        public AndConstraint<ReceivedRecordsAssertions> BeInDB(List<RecordToPublish> sentRecords)
+        public AndConstraint<ReceivedRecordsAssertions> BeAddedSuccessfully(List<RecordToPublish> sentRecords)
         {
             ReceivedRecords
                 .Should()
@@ -30,5 +30,14 @@ namespace Assertions
             return new AndConstraint<ReceivedRecordsAssertions>(this);
         }
 
+        [CustomAssertion]
+        public AndConstraint<ReceivedRecordsAssertions> NotContains(RecordToPublish sentRecord)
+        {
+            ReceivedRecords.FirstOrDefault(record => record.StoreId == sentRecord.StoreId)
+                .Should()
+                .BeNull();
+
+            return new AndConstraint<ReceivedRecordsAssertions>(this);
+        }
     }
 }

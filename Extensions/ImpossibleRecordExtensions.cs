@@ -14,8 +14,8 @@ namespace Extensions
         public static void SetInvalidStoreID(this RecordToPublish record) =>
             record.StoreId = record.Generator.GenerateValidCreditCard();
 
-        public static void SetPurchaseDateInUnexpectedFormat(this RecordToPublish record) =>
-            record.PurchaseDate = record.Generator.GenerateValidDate().ToString("dd/MM/yyyy");
+        public static void SetPurchaseDateInUnexpectedFormat(this RecordToPublish record, string invalidFormat) =>
+            record.PurchaseDate = record.Generator.GenerateValidDate().ToString(invalidFormat);
 
         public static void SetImpossiblePurchaseDate(this RecordToPublish record) =>
             record.PurchaseDate = record.Generator.GenerateValidStoreId();
